@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Jean-Yves Fournier
+  description: Install and configure graylog on docker
+  company: NA
+  license: GPLv3
+  min_ansible_version: 2.8
+  issue_tracker_url: https://github.com/mordash/ansible-graylog-docker/issues
+  github_branch: main
