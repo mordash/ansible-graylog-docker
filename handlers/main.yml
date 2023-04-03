@@ -1,0 +1,6 @@
+---
+- name: 'docker-graylog-restart'
+  systemd:
+    name: docker-compose@graylog.service
+    state: restarted
+    enabled: yes

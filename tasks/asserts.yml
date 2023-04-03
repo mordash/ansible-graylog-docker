@@ -1,0 +1,19 @@
+---
+- name: 'assert | check if ansible version >= 2.7'
+  assert:
+    that: ansible_version.full is version_compare(2.7, '>=')
+    msg: Ansible version 2.7 or later is required to use this version of the role
+
+- name: 'assert | gather the package facts'
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: 'assert | check if docker-ce is installed'
+  assert:
+    that: "'docker-ce' in ansible_facts.packages"
+
+- name: 'assert | check if docker pyhon libraries are installed'
+  assert:
+    that:
+      #- "'python-docker' in ansible_facts.packages"
+      - "'python3-docker' in ansible_facts.packages"

@@ -1,0 +1,10 @@
+---
+- name: 'include asserts'
+  include_tasks: 'asserts.yml'
+
+- name: 'requirements'
+  include_tasks: 'requirements.yml'
+
+## graylog server install
+- name: 'server install'
+  include_tasks: "install.yml"

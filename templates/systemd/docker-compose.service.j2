@@ -1,0 +1,14 @@
+[Unit]
+Description=graylog service with docker compose
+PartOf=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/opt/docker-compose/graylog
+ExecStart=/usr/bin/docker-compose up -d
+ExecStop=/usr/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target
