@@ -35,6 +35,21 @@ TODO
 ----
 
 
+Troubles :
+-----------------
+If you have this error :
+```
+ERROR: The Compose file './docker-compose.yml' is invalid because:
+services.graylog.depends_on contains an invalid type, it should be an array
+```
+just do This
+```
+apt remove docker-compose -y
+python3 -m pip install --upgrade pip
+python3 -m pip install docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
 
 License
 -------

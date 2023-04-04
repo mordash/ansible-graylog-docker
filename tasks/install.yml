@@ -80,6 +80,10 @@
   when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password is defined and reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True
 
 
+- name: 'install | graylog | create graylogs networks'
+  docker_network:
+    name: graylog
+
 - name: 'install | graylog | install unit file'
   template:
     src: systemd/docker-compose.service.j2
