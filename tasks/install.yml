@@ -29,7 +29,7 @@
   lineinfile:
     path: /opt/docker-compose/graylog/.env
     regexp: '^GRAYLOG_PASSWORD_SECRET='
-    line: GRAYLOG_PASSWORD_SECRET="{{ reg_graylog_env_secret }}"
+    line: GRAYLOG_PASSWORD_SECRET="{{ reg_graylog_env_secret.stdout }}"
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
 
 - name: 'install | graylog | generate root password into graylog env file'
@@ -40,7 +40,7 @@
   lineinfile:
     path: /opt/docker-compose/graylog/.env
     regexp: '^GRAYLOG_ROOT_PASSWORD_SHA2='
-    line: GRAYLOG_ROOT_PASSWORD_SHA2="{{ reg_GRAYLOG_ROOT_PASSWORD_SHA2_password }}"
+    line: GRAYLOG_ROOT_PASSWORD_SHA2="{{ reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.stdout }}"
   when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password is defined and reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True
 
 - name: 'install | graylog | install unit file'
