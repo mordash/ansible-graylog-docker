@@ -30,7 +30,6 @@
   check_mode: yes
   changed_when: false
   register: reg_graylog_env_secret_presence
-
 - debug:
     msg: "GRAYLOG_PASSWORD_SECRET exists."
   when: reg_graylog_env_secret_presence.found
@@ -60,6 +59,12 @@
   check_mode: yes
   changed_when: false
   register: reg_graylog_env_password_presence
+- debug:
+    msg: "GRAYLOG_ROOT_PASSWORD_SHA2 exists."
+  when: reg_graylog_env_password_presence.found
+- debug:
+    msg: "GRAYLOG_ROOT_PASSWORD_SHA2 does NOT exist."
+  when: not reg_graylog_env_password_presence.found
 
 - name: 'install | graylog password | generate root password into graylog .env file'
   shell: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
