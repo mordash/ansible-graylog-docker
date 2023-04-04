@@ -24,19 +24,26 @@
 
 - name: 'install | graylog secret | check presence secret in .env file'
   lineinfile:
-    dest: /opt/docker-compose/graylog/.env
-    line: "^GRAYLOG_PASSWORD_SECRET"
+    state: absent
+    path: /opt/docker-compose/graylog/.env
+    regexp: "^GRAYLOG_PASSWORD_SECRET"
   check_mode: yes
-  #ignore_errors: yes
+  changed_when: false
   register: reg_graylog_env_secret_presence
-  failed_when: (reg_graylog_env_secret_presence is changed) or (reg_graylog_env_secret_presence is failed)
+
+- debug:
+    msg: "GRAYLOG_PASSWORD_SECRET exists."
+  when: reg_graylog_env_secret_presence.found
+- debug:
+    msg: "GRAYLOG_PASSWORD_SECRET does NOT exist."
+  when: not reg_graylog_env_secret_presence.found
 
 - name: 'install | graylog secret | generate secret graylog env file'
   command: pwgen -N 1 -s 96
   register: reg_graylog_env_secret
-  when: reg_graylog_env_secret_presence.rc == 0
+  when: not reg_graylog_env_secret_presence.found
 
-- name: 'install | graylog secret | define secret password into .env file'
+- name: 'install | graylog secret | define secret into .env file'
   lineinfile:
     path: /opt/docker-compose/graylog/.env
     regexp: '^GRAYLOG_PASSWORD_SECRET='
@@ -45,19 +52,19 @@
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
 
 
-- name: 'install | graylog secret | check presence secret in .env file'
+- name: 'install | graylog secret | check root password presence in .env file'
   lineinfile:
-    dest: /opt/docker-compose/graylog/.env
-    line: "^GRAYLOG_ROOT_PASSWORD_SHA2"
+    state: absent
+    path: /opt/docker-compose/graylog/.env
+    regexp: '^GRAYLOG_ROOT_PASSWORD_SHA2='
   check_mode: yes
-  #ignore_errors: yes
+  changed_when: false
   register: reg_graylog_env_password_presence
-  failed_when: (reg_graylog_env_password_presence is changed) or (reg_graylog_env_password_presence is failed)
 
 - name: 'install | graylog password | generate root password into graylog .env file'
   shell: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
   register: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password
-  when: reg_graylog_env_password_presence.rc == 0
+  when: not reg_graylog_env_password_presence.found
 
 - name: 'install | graylog | define root password into .env file'
   lineinfile:
