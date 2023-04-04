@@ -22,7 +22,7 @@
     mode: 0644
 
 - name: 'install | graylog | generate secret graylog env file'
-  shell: pwgen -N 1 -s 96
+  command: pwgen -N 1 -s 96
   register: reg_graylog_env_secret
 
 - name: 'install | graylog | define secret password into .env file'
@@ -33,7 +33,7 @@
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
 
 - name: 'install | graylog | generate root password into graylog env file'
-  shell: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256"
+  command: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
   register: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password
 
 - name: 'install | graylog | define secret password into .env file'
