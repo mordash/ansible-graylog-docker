@@ -33,7 +33,7 @@
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
 
 - name: 'install | graylog | generate root password into graylog env file'
-  command: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
+  shell: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
   register: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password
 
 - name: 'install | graylog | define secret password into .env file'
