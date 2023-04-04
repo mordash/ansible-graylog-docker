@@ -96,3 +96,10 @@
     name: "docker-compose@graylog"
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
+
+- name: 'install | graylog | enable service'
+  systemd:
+    state: restarted
+    name: "docker-compose@graylog"
+  ignore_errors: '{{ ansible_check_mode }}'
+  when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True or reg_graylog_env_secret.changed == True
