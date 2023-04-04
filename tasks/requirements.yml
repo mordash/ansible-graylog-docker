@@ -9,9 +9,10 @@
     name:
       - curl
       - jq
+      - pwgen
     state: present
 
-- name: 'requirement | check if docker and docker-compose are installed'
+- name: 'requirement | docker-compose | check if docker and docker-compose are installed'
   shell:
     cmd: "{{ item }} --help"
   register: result
@@ -21,34 +22,3 @@
   with_items:
     - docker
     - docker-compose
-
-- name: 'requirement | create docker-compose directory'
-  file:
-    path: "/opt/docker-compose/"
-    state: directory
-    mode: '0755'
-
-- name: 'requirement | copy docker-compose file'
-  template:
-    src: compose/graylog.yml.j2
-    dest: "/opt/docker-compose/graylog/docker-compose.yml"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: 'requirement | systemd | install unit file'
-  template:
-    src: systemd/docker-compose.service.j2
-    dest: "/etc/systemd/system/docker-compose@graylog.service"
-    owner: root
-    group: root
-    mode: 0600
-  notify:
-    - 'docker-graylog-restart'
-
-- name: 'requirement | systemd | enable service'
-  systemd:
-    daemon_reload: yes
-    name: "docker-compose@graylog"
-    enabled: true
-  ignore_errors: '{{ ansible_check_mode }}'

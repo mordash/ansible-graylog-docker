@@ -1,0 +1,9 @@
+---
+# graylog
+graylog_url: "www.graylog.localhost"
+graylog_server_port: "9000"
+GRAYLOG_ROOT_PASSWORD_SHA2_password: "admin"
+
+
+# docker
+graylog_docker_network: graylog

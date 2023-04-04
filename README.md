@@ -12,12 +12,14 @@ Role variables
 
 | Variable                                     | Type    | Choices                                                                            | Default                 | Comment         |
 |----------------------------------------------|---------|------------------------------------------------------------------------------------|-------------------------|-----------------|
+| GRAYLOG_ROOT_PASSWORD_SHA2_password             | string  |                                                                                    | admin               |                 |
 
 
 Dependencies
 ------------
   - jq
   - Docker must installed and running for graylog server
+  - pwgen
 
 Example Playbook
 ----------------

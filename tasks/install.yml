@@ -1,0 +1,50 @@
+---
+- name: "install | graylog | create docker-compose directory"
+  file:
+    path: /opt/docker-compose/graylog
+    state: directory
+    mode: '0755'
+
+- name: 'install | graylog | copy docker-compose file'
+  template:
+    src: compose/graylog.yml.j2
+    dest: "/opt/docker-compose/graylog/docker-compose.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 'install | graylog | copy .env file'
+  template:
+    src: compose/.env.j2
+    dest: "/opt/docker-compose/graylog/.env"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 'install | graylog | generate secret graylog env file'
+  shell: pwgen -N 1 -s 96
+  register: graylog_env_secret
+
+- name: 'install | graylog | copy .env file'
+  lineinfile:
+    path: /opt/docker-compose/graylog/.env
+    regexp: '^GRAYLOG_PASSWORD_SECRET='
+    line: GRAYLOG_PASSWORD_SECRET="{{ graylog_env_secret }}"
+  when: graylog_env_secret is defined and graylog_env_secret.changed == True
+
+- name: 'install | graylog | install unit file'
+  template:
+    src: systemd/docker-compose.service.j2
+    dest: "/etc/systemd/system/docker-compose@graylog.service"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - 'docker-graylog-restart'
+
+- name: 'install | graylog | enable service'
+  systemd:
+    daemon_reload: yes
+    name: "docker-compose@graylog"
+    enabled: true
+  ignore_errors: '{{ ansible_check_mode }}'
