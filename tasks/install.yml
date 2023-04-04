@@ -84,6 +84,15 @@
   docker_network:
     name: graylog
 
+- name: 'install | graylog | create graylogs volumes'
+  docker_volume:
+    name: "{{ item }}"
+  with_items:
+    - graylog_mongodb_data
+    - graylog_os_data
+    - graylog_data
+    - graylog_journal
+
 - name: 'install | graylog | install unit file'
   template:
     src: systemd/docker-compose.service.j2
