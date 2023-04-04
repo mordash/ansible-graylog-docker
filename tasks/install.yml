@@ -20,13 +20,13 @@
     owner: root
     group: root
     mode: 0644
-
+    force: no
 
 - name: 'install | graylog secret | check presence secret in .env file'
   lineinfile:
     state: absent
     path: /opt/docker-compose/graylog/.env
-    regexp: "^GRAYLOG_PASSWORD_SECRET"
+    regexp: '^GRAYLOG_PASSWORD_SECRET='
   check_mode: yes
   changed_when: false
   register: reg_graylog_env_secret_presence
