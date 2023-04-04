@@ -1,0 +1,118 @@
+version: "3.3"
+
+volumes:
+  graylog_mongodb_data:
+    external: true
+  graylog_os_data:
+    external: true
+  graylog_data:
+    external: true
+  graylog_journal:
+    external: true
+
+networks:
+  graylog:
+    external: true
+{% if graylog_traefik_enable is defined %}
+        traefik:
+          external: true
+{% endif %}
+
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name: graylog_mongodb
+    restart: on-failure
+    volumes:
+      - graylog_mongodb_data:/data/db
+    networks:
+      - graylog
+    logging:
+      driver: syslog
+      options:
+        tag: docker_graylog-mongodb
+
+  opensearch:
+    image: opensearchproject/opensearch:2.4.0
+    container_name: graylog_opensearch
+    restart: on-failure
+    environment:
+      OPENSEARCH_JAVA_OPTS: "{{ opensearch_java_memory_OPTS }}"
+      bootstrap.memory_lock: "true"
+      discovery.type: "single-node"
+      action.auto_create_index: "false"
+      plugins.security.ssl.http.enabled: "false"
+      plugins.security.disabled: "true"
+    ulimits:
+      memlock:
+        hard: -1
+        soft: -1
+    deploy:
+      resources:
+        limits:
+          memory: {{ opensearch_memory }}
+    volumes:
+      - graylog_os_data:/usr/share/opensearch/data
+    networks:
+      - graylog
+    logging:
+      driver: syslog
+      options:
+        tag: docker_graylog-opensearch
+
+  graylog:
+    image: graylog/graylog:5.0
+    container_name: graylog
+    restart: unless-stopped
+    depends_on:
+      opensearch:
+        condition: "service_started"
+      mongodb:
+        condition: "service_started"
+    entrypoint: "/usr/bin/tini -- wait-for-it opensearch:9200 --  /docker-entrypoint.sh"
+    environment:
+      GRAYLOG_NODE_ID_FILE: "/usr/share/graylog/data/config/node-id"
+      GRAYLOG_PASSWORD_SECRET: "${GRAYLOG_PASSWORD_SECRET}"
+      GRAYLOG_ROOT_PASSWORD_SHA2: "${GRAYLOG_ROOT_PASSWORD_SHA2}"
+      GRAYLOG_ROOT_TIMEZONE: "Europe/Paris"
+      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
+{% if graylog_HTTP_EXTERNAL_URI is defined %}
+      GRAYLOG_HTTP_EXTERNAL_URI: "{{ graylog_HTTP_EXTERNAL_URI }}"
+{% endif %}
+      GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
+      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+    ports:
+      - "5044:5044/tcp"   # Beats
+      - "5140:5140/udp"   # Syslog
+      - "{{ graylog_port_tcp_syslog }}:1514/tcp"   # Syslog
+      - "5555:5555/tcp"   # RAW TCP
+      - "5555:5555/udp"   # RAW TCP
+      - "9000:9000/tcp"   # Server API
+      - "12201:12201/tcp" # GELF TCP
+      - "12201:12201/udp" # GELF UDP
+      #- "10000:10000/tcp" # Custom TCP port
+      #- "10000:10000/udp" # Custom UDP port
+      - "13301:13301/tcp" # Forwarder data
+      - "13302:13302/tcp" # Forwarder config
+    volumes:
+      - graylog_data:/usr/share/graylog/data
+      - graylog_journal:/usr/share/graylog/data/journal
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - graylog
+{% if graylog_traefik_enable is defined %}
+      - traefik
+    labels:
+      traefik.enable: true
+      traefik.docker.network: traefik
+      traefik.http.routers.graylog.rule: "Host(`{{ graylog_url }}`)"
+      traefik.http.routers.graylog.entrypoints: websecure
+      traefik.http.routers.graylog.tls: true
+      traefik.http.routers.graylog.tls.certresolver: letsencrypt
+      traefik.http.services.graylog.loadbalancer.server.port: {{ graylog_server_port }}
+{% endif %}
+    logging:
+      driver: syslog
+      options:
+        tag: docker_graylog
