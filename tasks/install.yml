@@ -51,7 +51,7 @@
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
 
 
-- name: 'install | graylog secret | check root password presence in .env file'
+- name: 'install | graylog password | check root password presence in .env file'
   lineinfile:
     state: absent
     path: /opt/docker-compose/graylog/.env
@@ -71,7 +71,7 @@
   register: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password
   when: not reg_graylog_env_password_presence.found
 
-- name: 'install | graylog | define root password into .env file'
+- name: 'install | graylog password | define root password into .env file'
   lineinfile:
     path: /opt/docker-compose/graylog/.env
     regexp: '^GRAYLOG_ROOT_PASSWORD_SHA2='
@@ -80,11 +80,11 @@
   when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password is defined and reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True
 
 
-- name: 'install | graylog | create graylogs networks'
+- name: 'install | graylog docker | create graylogs networks'
   docker_network:
     name: graylog
 
-- name: 'install | graylog | create graylogs volumes'
+- name: 'install | graylog docker | create graylogs volumes'
   docker_volume:
     name: "{{ item }}"
   with_items:
@@ -93,7 +93,7 @@
     - graylog_data
     - graylog_journal
 
-- name: 'install | graylog | install unit file'
+- name: 'install | graylog systemd | install unit file'
   template:
     src: systemd/docker-compose.service.j2
     dest: "/etc/systemd/system/docker-compose@graylog.service"
@@ -103,14 +103,14 @@
   notify:
     - 'docker-graylog-restart'
 
-- name: 'install | graylog | enable service'
+- name: 'install | graylog systemd | enable service'
   systemd:
     daemon_reload: yes
     name: "docker-compose@graylog"
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
 
-- name: 'install | graylog | enable service'
+- name: 'install | graylog systemd | restart service'
   systemd:
     state: restarted
     name: "docker-compose@graylog"
