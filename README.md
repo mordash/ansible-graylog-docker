@@ -6,14 +6,20 @@ The present role :
 
 The role has been successfully tested on :
   - debian 10 (buster)
+  - Ubuntu 22.04.2 LTS
 
 Role variables
 --------------
 
 | Variable                                     | Type    | Choices                                                                            | Default                 | Comment         |
 |----------------------------------------------|---------|------------------------------------------------------------------------------------|-------------------------|-----------------|
-| GRAYLOG_ROOT_PASSWORD_SHA2_password             | string  |                                                                                    | admin               |                 |
-| graylog_port_tcp_syslog             | string  |                                                                                    | 1514               |                 |
+| GRAYLOG_ROOT_PASSWORD_SHA2_password          | string  |                                                                                    | admin                   |                 |
+| graylog_port_tcp_syslog                      | string  |                                                                                    | 1514                    |                 |
+| graylog_url                                  | string  |                                                                                    | www.graylog.localhost   |                 |
+| graylog_server_port                          | string  |                                                                                    | 9000                    |                 |
+| graylog_docker_network                       | string  |                                                                                    | graylog                 |                 |
+| opensearch_memory                            | string  |                                                                                    | 2g                      |                 |
+| opensearch_java_memory_OPTS                  | string  |                                                                                    | '-Xms1g -Xmx1g'         |                 |
 
 Dependencies
 ------------
@@ -35,9 +41,12 @@ TODO
 ----
 
 
-Troubles :
+Troubleshoots :
 -----------------
-If you have this error :
+
+If you have this error during starting docker-compose :
+
+- 1 docker-compose version
 ```
 ERROR: The Compose file './docker-compose.yml' is invalid because:
 services.graylog.depends_on contains an invalid type, it should be an array
