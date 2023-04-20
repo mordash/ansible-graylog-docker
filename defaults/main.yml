@@ -6,6 +6,17 @@ graylog_server_port: "9000"
 GRAYLOG_ROOT_PASSWORD_SHA2_password: "admin"
 graylog_port_tcp_syslog: 1514
 
+# graylog mail
+graylog_email_enabled: 'false'
+graylog_email_hostname: "smtp.gmail.com"
+graylog_email_port: "587"
+graylog_email_use_auth: "true"
+graylog_email_use_tls: "true"
+graylog_email_auth_username: "my_mail@gmail.com"
+graylog_email_auth_password: "my_password"
+graylog_email_from_email: "my_mail@gmail.com"
+graylog_email_subject_prefix: "[graylog]"
+
 # opensearch
 opensearch_memory: '2g'
 opensearch_java_memory_OPTS: '-Xms1g -Xmx1g'

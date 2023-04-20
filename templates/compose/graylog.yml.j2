@@ -81,6 +81,18 @@ services:
 {% endif %}
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
       GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+      # mail
+{% if graylog_email_enabled is defined %}
+      GRAYLOG_TRANSPORT_EMAIL_ENABLED : "{{ graylog_email_enabled }}"
+      GRAYLOG_TRANSPORT_EMAIL_HOSTNAME : "{{ graylog_email_hostname }}"
+      GRAYLOG_TRANSPORT_EMAIL_PORT : "{{ graylog_email_port }}"
+      GRAYLOG_TRANSPORT_EMAIL_USE_AUTH : "{{ graylog_email_use_auth }}"
+      GRAYLOG_TRANSPORT_EMAIL_USE_TLS : "{{ graylog_email_use_tls }}"
+      GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME : "{{ graylog_email_auth_username }}"
+      GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD : "{{ graylog_email_auth_password }}"
+      GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL : "{{ graylog_email_from_email }}"
+      GRAYLOG_TRANSPORT_EMAIL_SUBJECT_PREFIX : "{{ graylog_email_subject_prefix }}"
+{% endif %}
     ports:
       - "5044:5044/tcp"   # Beats
       - "5140:5140/udp"   # Syslog

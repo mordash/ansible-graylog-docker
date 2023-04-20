@@ -18,6 +18,15 @@ Role variables
 | graylog_url                                  | string  |                                                                                    | www.graylog.localhost   |                 |
 | graylog_server_port                          | string  |                                                                                    | 9000                    |                 |
 | graylog_docker_network                       | string  |                                                                                    | graylog                 |                 |
+| graylog_email_enabled |                      | bool    |                                                                                    | false                   |                 |
+| graylog_email_hostname | string | | smtp.gmail.com | |
+| graylog_email_port | int | | 587 | |
+| graylog_email_use_auth | bool | | true | |
+| graylog_email_use_tls | bool | | true | |
+| graylog_email_auth_username | string | | my_mail@gmail.com | |
+| graylog_email_auth_password | string | | my_password | |
+| graylog_email_from_email | string | | my_mail@gmail.com | |
+| graylog_email_subject_prefix | string | | [graylog] | |
 | opensearch_memory                            | string  |                                                                                    | 2g                      |                 |
 | opensearch_java_memory_OPTS                  | string  |                                                                                    | '-Xms1g -Xmx1g'         |                 |
 
@@ -29,17 +38,37 @@ Dependencies
 
 Example Playbook
 ----------------
+```yml
+---
+- hosts: localhost
+  gather_facts: yes
+  ignore_errors: "{{ ansible_check_mode }}" # ignore errors only in check mode !
 
-
+  roles:
+    - { role: ansible-graylog-docker,          tags: ['ansible-graylog-docker'] }
+```
 
 Example variables
 -----------------
 
 
+Requirements
+-----------------
+
+redirect rsyslog apache like this :
+```
+:syslogtag, startswith, "vhost_apache" @@graylog_server_ip:graylog_port_tcp_syslog;RSYSLOG_LongTagForwardForma
+```
 
 TODO
 ----
 
+  - documentation
+    - review / enhance documentation
+  - content pack
+    - add options to import content pack
+  - log format
+    - add options to change logformat haproxy/apache2
 
 Troubleshoots :
 -----------------
