@@ -19,6 +19,6 @@
       - "'python3-docker' in ansible_facts.packages"
 
 - name: 'assert | check if your cpu support avx (Mongodb 5 requirement)'
-  shell: test "$(lscpu | awk '/avx/ { count++ } END { print count }')" -eq 1
+  shell: (lscpu | awk '/avx/ { count++ } END { print count }'
   register: reg_lscpu_avx
   failed_when: int(reg_lscpu_avx.stdout) != 1
