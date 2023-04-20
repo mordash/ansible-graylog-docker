@@ -21,4 +21,4 @@
 - name: 'assert | check if your cpu support avx (Mongodb 5 requirement)'
   shell: lscpu | awk '/avx/ { count++ } END { print count }'
   register: reg_lscpu_avx
-  failed_when: int(reg_lscpu_avx.stdout) != 1
+  failed_when: reg_lscpu_avx.stdout|int != 1
