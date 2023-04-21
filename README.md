@@ -36,6 +36,10 @@ Dependencies
   - Docker must installed and running for graylog server
   - pwgen
 
+Must do :
+------------
+Create a lvm partition for docker : /var/lib/docker
+
 Example Playbook
 ----------------
 ```yml
@@ -46,6 +50,52 @@ Example Playbook
 
   roles:
     - { role: ansible-graylog-docker,          tags: ['ansible-graylog-docker'] }
+```
+
+Exemple graylog-proxy-pass nginx on another docker server :
+------------
+```
+events {
+
+}
+
+http {
+  server {
+    listen 80;
+
+    location / {
+      proxy_pass http://<ip_graylog_server>:9000;
+    }
+  }
+}
+```
+```
+version: '3.7'
+
+networks:
+  traefik:
+    external: true
+
+services:
+  graylog-proxy-pass:
+    image: nginx:latest
+    container_name: graylog-proxy-pass
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 127.0.0.1:82:80
+    networks:
+      - traefik
+    labels:
+      traefik.docker.network: traefik
+      traefik.enable: true
+      traefik.http.routers.graylog.entrypoints: https
+      traefik.http.routers.graylog.rule: Host(`<graylog_url>`)
+      traefik.http.routers.graylog.tls: true
+      traefik.http.routers.graylog.tls.certresolver: letsencrypt
+      traefik.frontend.auth.basic.users: "{{ _auth_users|join(',') }}"
+      traefik.http.services.graylog.loadbalancer.server.port: 80
 ```
 
 Example variables
