@@ -1,0 +1,45 @@
+---
+- name: docker | update APT Cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  tags: ['docker']
+
+- name: docker | pre-requirements install
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    state: present
+  tags: ['docker']
+
+- name: docker | add official GPG key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  tags: ['docker']
+
+- name: docker | add repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+  tags: ['docker']
+
+- name: docker | install packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - docker-compose
+    state: present
+  tags: ['docker']
+
+- name: docker | ensure docker is started and enabled at boot
+  service:
+    name: docker
+    state: started
+    enabled: true
+  tags: ['docker']
