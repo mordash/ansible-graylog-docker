@@ -6,6 +6,7 @@ The present role :
 
 The role has been successfully tested on :
   - debian 10 (buster)
+  - debian 11 (bullseye)
   - Ubuntu 22.04.2 LTS
 
 Role variables
@@ -92,7 +93,7 @@ services:
     labels:
       traefik.docker.network: traefik
       traefik.enable: true
-      traefik.http.routers.graylog.entrypoints: https
+      traefik.http.routers.graylog.entrypoints: websecure
       traefik.http.routers.graylog.rule: Host(`<graylog_url>`)
       traefik.http.routers.graylog.tls: true
       traefik.http.routers.graylog.tls.certresolver: letsencrypt
@@ -102,6 +103,12 @@ services:
 
 Example variables
 -----------------
+```
+---
+graylog_port_tcp_syslog_custom:
+  - 10000
+  - 10010
+```
 
 
 Requirements
