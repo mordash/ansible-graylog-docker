@@ -12,6 +12,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+    - 'docker-graylog-restart'
 
 - name: 'install | graylog | copy .env file'
   template:
@@ -49,7 +51,8 @@
     line: GRAYLOG_PASSWORD_SECRET="{{ reg_graylog_env_secret.stdout }}"
     insertafter: '^# GRAYLOG_PASSWORD_SECRET'
   when: reg_graylog_env_secret is defined and reg_graylog_env_secret.changed == True
-
+  notify:
+    - 'docker-graylog-restart'
 
 - name: 'install | graylog password | check root password presence in .env file'
   lineinfile:
@@ -78,7 +81,8 @@
     line: GRAYLOG_ROOT_PASSWORD_SHA2="{{ reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.stdout }}"
     insertafter: '^# GRAYLOG_ROOT_PASSWORD_SHA2'
   when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password is defined and reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True
-
+  notify:
+    - 'docker-graylog-restart'
 
 - name: 'install | graylog docker | create graylogs networks'
   docker_network:
@@ -110,9 +114,9 @@
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
 
-- name: 'install | graylog systemd | restart service'
-  systemd:
-    state: restarted
-    name: "docker-compose@graylog"
-  ignore_errors: '{{ ansible_check_mode }}'
-  when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True or reg_graylog_env_secret.changed == True
+#- name: 'install | graylog systemd | restart service'
+#  systemd:
+#    state: restarted
+#    name: "docker-compose@graylog"
+#  ignore_errors: '{{ ansible_check_mode }}'
+#  when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True or reg_graylog_env_secret.changed == True
