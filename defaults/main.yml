@@ -5,6 +5,10 @@ graylog_HTTP_EXTERNAL_URI: "https://{{ graylog_url }}/"
 graylog_server_port: "9000"
 GRAYLOG_ROOT_PASSWORD_SHA2_password: "admin"
 graylog_port_tcp_syslog: 1514
+#graylog_port_tcp_syslog_custom:
+#  - 10000
+#graylog_port_udp_syslog_custom:
+#  - 10001
 
 # graylog mail
 graylog_email_enabled: 'false'

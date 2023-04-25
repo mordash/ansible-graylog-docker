@@ -18,6 +18,8 @@ Role variables
 | graylog_url                                  | string  |                                                                                    | www.graylog.localhost   |                 |
 | graylog_server_port                          | string  |                                                                                    | 9000                    |                 |
 | graylog_docker_network                       | string  |                                                                                    | graylog                 |                 |
+| graylog_port_tcp_syslog_custom                       | list  |                                                                                    | undefined                 |                 |
+| graylog_port_ucp_syslog_custom                       | list  |                                                                                    | undefined                 |                 |
 | graylog_email_enabled                     | bool    | true/false                                                                                   | false                   |                 |
 | graylog_email_hostname | string | | smtp.gmail.com | |
 | graylog_email_port | int | | 587 | |

@@ -102,10 +102,18 @@ services:
       - "9000:9000/tcp"   # Server API
       - "12201:12201/tcp" # GELF TCP
       - "12201:12201/udp" # GELF UDP
-      #- "10000:10000/tcp" # Custom TCP port
-      #- "10000:10000/udp" # Custom UDP port
       - "13301:13301/tcp" # Forwarder data
       - "13302:13302/tcp" # Forwarder config
+{% if graylog_port_tcp_syslog_custom is defined %}
+{% for item in graylog_port_tcp_syslog_custom|sort %}
+      - "{{ item }}:{{ item }}/tcp" # Custom TCP port
+{% endfor %}
+{% endif %}
+{% if graylog_port_udp_syslog_custom is defined %}
+{% for item in graylog_port_udp_syslog_custom|sort %}
+      - "{{ item }}:{{ item }}/udp" # Custom UDP port
+{% endfor %}
+{% endif %}
     volumes:
       - graylog_data:/usr/share/graylog/data
       - graylog_journal:/usr/share/graylog/data/journal
