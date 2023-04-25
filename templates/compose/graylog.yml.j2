@@ -82,7 +82,7 @@ services:
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
       GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
       # mail
-{% if graylog_email_enabled is defined %}
+{% if graylog_email_enabled == true %}
       GRAYLOG_TRANSPORT_EMAIL_ENABLED : "{{ graylog_email_enabled }}"
       GRAYLOG_TRANSPORT_EMAIL_HOSTNAME : "{{ graylog_email_hostname }}"
       GRAYLOG_TRANSPORT_EMAIL_PORT : "{{ graylog_email_port }}"
