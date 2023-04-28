@@ -121,11 +121,22 @@
 #  notify:
 #    - 'docker-graylog-restart'
 
+- name: 'install | graylog | create folder for geoip databases'
+  file:
+    path: /var/lib/docker/volumes/graylog_data/_data/geoip
+    state: directory
+    owner: 1100
+    group: 1100
+    mode: '0755'
+
 - name: 'install | graylog | unarchive geoip databases'
   unarchive:
     remote_src: no
     src: "files/lookup_tables/{{ item }}"
     dest: /var/lib/docker/volumes/graylog_data/_data/geoip
+    owner: 1100
+    group: 1100
+    mode: '0644'
     extra_opts: [--strip-components=1]
   with_items:
     - GeoLite2-ASN_20230428.tar.gz
