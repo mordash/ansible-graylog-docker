@@ -97,6 +97,42 @@
     - graylog_data
     - graylog_journal
 
+#- name: 'install | graylog | push geoip databases'
+#  synchronize:
+#    src: "files/lookup_tables/{{ item }}"
+#    dest: "/var/lib/docker/volumes/graylog_data/_data/geoip"
+#    owner: 1100
+#    group: 1100
+#    mode: 0644
+#  with_items:
+#    - GeoLite2-ASN_20230428.tar.gz
+#    - GeoLite2-City_20230428.tar.gz
+#  notify:
+#    - 'docker-graylog-restart'
+#
+#- name: 'install | graylog | unarchive geoip databases'
+#  unarchive:
+#    remote_src: yes
+#    src: "/var/lib/docker/volumes/graylog_data/_data/geoip/{{ item }}"
+#    dest: /var/lib/docker/volumes/graylog_data/_data/geoip
+#  with_items:
+#    - GeoLite2-ASN_20230428.tar.gz
+#    - GeoLite2-City_20230428.tar.gz
+#  notify:
+#    - 'docker-graylog-restart'
+
+- name: 'install | graylog | unarchive geoip databases'
+  unarchive:
+    remote_src: no
+    src: "files/lookup_tables/{{ item }}"
+    dest: /var/lib/docker/volumes/graylog_data/_data/geoip
+    extra_opts: [--strip-components=1]
+  with_items:
+    - GeoLite2-ASN_20230428.tar.gz
+    - GeoLite2-City_20230428.tar.gz
+  notify:
+    - 'docker-graylog-restart'
+
 - name: 'install | graylog systemd | install unit file'
   template:
     src: systemd/docker-compose.service.j2
