@@ -28,9 +28,10 @@
   when: not stat_result.stat.exists
   tags: [ 'geoip' ]
 
-- name: 'geoip | install deb .deb package'
+- name: 'geoip | install .deb package'
   apt:
     deb: /tmp/geoipupdate/geoipupdate_{{ geoip_latest_version.stdout }}_linux_{{ geoip_arch }}.deb
+  when: not stat_result.stat.exists
   tags: [ 'geoip' ]
 
 - name: 'geoip | cleanup temp path'
@@ -45,7 +46,7 @@
     path: /etc/GeoIP.conf
     regexp: 'AccountID YOUR_ACCOUNT_ID_HERE'
     line: "AccountID {{ geoip_accountid }}"
-  when: geoip_accountid is defined and geoip_accountid.changed == True
+  when: geoip_accountid is defined
   tags: [ 'geoip' ]
 
 - name: 'geoip | define LicenseKey in GeoIP.conf'
@@ -53,7 +54,7 @@
     path: /etc/GeoIP.conf
     regexp: 'LicenseKey YOUR_LICENSE_KEY_HERE'
     line: "LicenseKey {{ geoip_licensekey }}"
-  when: geoip_licensekey is defined and geoip_licensekey.changed == True
+  when: geoip_licensekey is defined
   tags: [ 'geoip' ]
 
 - name: 'geoip | define EditionIDs in GeoIP.conf'
@@ -61,7 +62,7 @@
     path: /etc/GeoIP.conf
     regexp: 'EditionIDs GeoLite2-Country GeoLite2-City'
     line: "EditionIDs {{ geoip_editionids }}"
-  when: geoip_editionids is defined and geoip_editionids.changed == True
+  when: geoip_editionids is defined
   tags: [ 'geoip' ]
 
 - name: 'geoip | define DatabaseDirectory in GeoIP.conf'
@@ -70,7 +71,7 @@
     regexp: '# DatabaseDirectory /usr/share/GeoIP'
     line: "DatabaseDirectory {{ geoip_database_directory }}"
     insertafter: '# DatabaseDirectory /usr/share/GeoIP'
-  when: geoip_database_directory is defined and geoip_database_directory.changed == True
+  when: geoip_database_directory is defined
   tags: [ 'geoip' ]
 
 # crontab
