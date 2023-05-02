@@ -44,7 +44,7 @@
 - name: 'geoip | define AccountID in GeoIP.conf'
   lineinfile:
     path: /etc/GeoIP.conf
-    regexp: 'AccountID YOUR_ACCOUNT_ID_HERE'
+    regexp: '^AccountID'
     line: "AccountID {{ geoip_accountid }}"
   when: geoip_accountid is defined
   tags: [ 'geoip' ]
@@ -52,7 +52,7 @@
 - name: 'geoip | define LicenseKey in GeoIP.conf'
   lineinfile:
     path: /etc/GeoIP.conf
-    regexp: 'LicenseKey YOUR_LICENSE_KEY_HERE'
+    regexp: '^LicenseKey'
     line: "LicenseKey {{ geoip_licensekey }}"
   when: geoip_licensekey is defined
   tags: [ 'geoip' ]
@@ -60,7 +60,7 @@
 - name: 'geoip | define EditionIDs in GeoIP.conf'
   lineinfile:
     path: /etc/GeoIP.conf
-    regexp: 'EditionIDs GeoLite2-Country GeoLite2-City'
+    regexp: '^EditionIDs'
     line: "EditionIDs {{ geoip_editionids }}"
   when: geoip_editionids is defined
   tags: [ 'geoip' ]
