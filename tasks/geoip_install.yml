@@ -1,0 +1,86 @@
+---
+# install
+- name: 'geoip | check if geoip is already install'
+  stat:
+    path: /usr/bin/geoipupdate
+  register: stat_result
+  tags: [ 'geoip' ]
+
+- name: 'geoip | create temp path'
+  file:
+    state: directory
+    path: /tmp/geoipupdate/
+  when: not stat_result.stat.exists
+  tags: [ 'geoip' ]
+
+- name: 'geoip | get latest release from GitHub'
+  shell: curl --silent "https://api.github.com/repos/maxmind/geoipupdate/releases/latest" | jq -r .tag_name | sed "s/v//"
+  register: geoip_latest_version
+  run_once: true
+  when: not stat_result.stat.exists
+  tags: [ 'geoip' ]
+
+- name: 'geoip | download'
+  get_url:
+    url: "https://github.com/maxmind/geoipupdate/releases/download/v{{ geoip_latest_version.stdout }}/geoipupdate_{{ geoip_latest_version.stdout }}_linux_{{ geoip_arch }}.deb"
+    dest: /tmp/geoipupdate/
+  ignore_errors: '{{ ansible_check_mode }}'
+  when: not stat_result.stat.exists
+  tags: [ 'geoip' ]
+
+- name: 'geoip | install deb .deb package'
+  apt:
+    deb: /tmp/geoipupdate/geoipupdate_{{ geoip_latest_version.stdout }}_linux_{{ geoip_arch }}.deb
+  tags: [ 'geoip' ]
+
+- name: 'geoip | cleanup temp path'
+  file:
+    state: absent
+    path: /tmp/geoipupdate/
+  tags: [ 'geoip' ]
+
+# configure
+- name: 'geoip | define AccountID in GeoIP.conf'
+  lineinfile:
+    path: /etc/GeoIP.conf
+    regexp: 'AccountID YOUR_ACCOUNT_ID_HERE'
+    line: "AccountID {{ geoip_accountid }}"
+  when: geoip_accountid is defined and geoip_accountid.changed == True
+  tags: [ 'geoip' ]
+
+- name: 'geoip | define LicenseKey in GeoIP.conf'
+  lineinfile:
+    path: /etc/GeoIP.conf
+    regexp: 'LicenseKey YOUR_LICENSE_KEY_HERE'
+    line: "LicenseKey {{ geoip_licensekey }}"
+  when: geoip_licensekey is defined and geoip_licensekey.changed == True
+  tags: [ 'geoip' ]
+
+- name: 'geoip | define EditionIDs in GeoIP.conf'
+  lineinfile:
+    path: /etc/GeoIP.conf
+    regexp: 'EditionIDs GeoLite2-Country GeoLite2-City'
+    line: "EditionIDs {{ geoip_editionids }}"
+  when: geoip_editionids is defined and geoip_editionids.changed == True
+  tags: [ 'geoip' ]
+
+- name: 'geoip | define DatabaseDirectory in GeoIP.conf'
+  lineinfile:
+    path: /opt/docker-compose/graylog/.env
+    regexp: '# DatabaseDirectory /usr/share/GeoIP'
+    line: "DatabaseDirectory {{ geoip_database_directory }}"
+    insertafter: '# DatabaseDirectory /usr/share/GeoIP'
+  when: geoip_database_directory is defined and geoip_database_directory.changed == True
+  tags: [ 'geoip' ]
+
+# crontab
+- name: 'geoip | Creates a cron file under /etc/cron.d'
+  cron:
+    name: geoipupdate
+    weekday: "1-5"
+    minute: "0"
+    hour: "10"
+    user: root
+    job: "/usr/local/bin/geoipupdate"
+    cron_file: geoipupdate
+  tags: [ 'geoip' ]

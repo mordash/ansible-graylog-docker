@@ -33,6 +33,11 @@ Role variables
 | graylog_http_external_uri_var                | string  |                                                                                    | {{ graylog_url }}       |                 |
 | opensearch_memory                            | string  |                                                                                    | 2g                      |                 |
 | opensearch_java_memory_opts                  | string  |                                                                                    | '-Xms1g -Xmx1g'         |                 |
+| geoip_accountid                              | int     |                                                                                    | AccountID               |                 |
+| geoip_licensekey                             | string  |                                                                                    | YOUR_LICENSE_KEY_HERE   |                 |
+| geoip_editionids                             | string  |                                                                                    | GeoLite2-ASN GeoLite2-City |              |
+| geoip_arch                                   | string  |                                                                                    | amd64                   |                 |
+| geoip_database_directory                     | string  |                                                                                    | /var/lib/docker/volumes/graylog_data/_data/geoip  |                 |
 
 Dependencies
 ------------
@@ -42,7 +47,8 @@ Dependencies
 
 Must do :
 ------------
-Create a lvm partition for docker : /var/lib/docker
+- Create a lvm partition for docker : /var/lib/docker
+- Account GEOIP 'see your preset here https://www.maxmind.com/en/accounts/current/license-key/GeoIP.conf'
 
 Example Playbook
 ----------------

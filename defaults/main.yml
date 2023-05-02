@@ -27,3 +27,10 @@ opensearch_java_memory_opts: '-Xms1g -Xmx1g'
 
 # docker
 graylog_docker_network: graylog
+
+# GeoIP
+geoip_accountid: 'AccountID'
+geoip_licensekey: 'YOUR_LICENSE_KEY_HERE'
+geoip_editionids: 'GeoLite2-ASN GeoLite2-City'
+geoip_arch: 'amd64'
+geoip_database_directory: '/var/lib/docker/volumes/graylog_data/_data/geoip'

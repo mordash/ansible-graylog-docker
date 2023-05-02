@@ -8,3 +8,7 @@
 ## graylog server install
 - name: 'server install'
   include_tasks: "install.yml"
+
+## geoip install
+- name: 'geoip install'
+  include_tasks: "geoip_install.yml"
