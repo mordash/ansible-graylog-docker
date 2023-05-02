@@ -67,7 +67,7 @@
 
 - name: 'geoip | define DatabaseDirectory in GeoIP.conf'
   lineinfile:
-    path: /opt/docker-compose/graylog/.env
+    path: /etc/GeoIP.conf
     regexp: '# DatabaseDirectory /usr/share/GeoIP'
     line: "DatabaseDirectory {{ geoip_database_directory }}"
     insertafter: '# DatabaseDirectory /usr/share/GeoIP'
