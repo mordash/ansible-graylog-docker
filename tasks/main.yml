@@ -12,3 +12,4 @@
 ## geoip install
 - name: 'geoip install'
   include_tasks: "geoip_install.yml"
+  tags: [ 'geoip' ]
