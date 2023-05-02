@@ -14,24 +14,25 @@ Role variables
 
 | Variable                                     | Type    | Choices                                                                            | Default                 | Comment         |
 |----------------------------------------------|---------|------------------------------------------------------------------------------------|-------------------------|-----------------|
-| GRAYLOG_ROOT_PASSWORD_SHA2_password          | string  |                                                                                    | admin                   |                 |
+| graylog_root_password_sha2_password          | string  |                                                                                    | admin                   |                 |
 | graylog_port_tcp_syslog                      | string  |                                                                                    | 1514                    |                 |
 | graylog_url                                  | string  |                                                                                    | www.graylog.localhost   |                 |
 | graylog_server_port                          | string  |                                                                                    | 9000                    |                 |
 | graylog_docker_network                       | string  |                                                                                    | graylog                 |                 |
-| graylog_port_tcp_syslog_custom                       | list  |                                                                                    | undefined                 |                 |
-| graylog_port_ucp_syslog_custom                       | list  |                                                                                    | undefined                 |                 |
-| graylog_email_enabled                     | bool    | true/false                                                                                   | false                   |                 |
-| graylog_email_hostname | string | | smtp.gmail.com | |
-| graylog_email_port | int | | 587 | |
-| graylog_email_use_auth | bool | true/false | true | |
-| graylog_email_use_tls | bool | true/false | true | |
-| graylog_email_auth_username | string | | my_mail@gmail.com | |
-| graylog_email_auth_password | string | | my_password | |
-| graylog_email_from_email | string | | my_mail@gmail.com | |
-| graylog_email_subject_prefix | string | | [graylog] | |
+| graylog_port_tcp_syslog_custom               | list    |                                                                                    | undefined               |                 |
+| graylog_port_ucp_syslog_custom               | list    |                                                                                    | undefined               |                 |
+| graylog_email_enabled                        | bool    | true/false                                                                         | false                   |                 |
+| graylog_email_hostname                       | string  |                                                                                    | smtp.gmail.com          |                 |
+| graylog_email_port                           | int     |                                                                                    | 587                     |                 |
+| graylog_email_use_auth                       | bool    | true/false                                                                         | true                    |                 |
+| graylog_email_use_tls                        | bool    | true/false                                                                         | true                    |                 |
+| graylog_email_auth_username                  | string  |                                                                                    | my_mail@gmail.com       |                 |
+| graylog_email_auth_password                  | string  |                                                                                    | my_password             |                 |
+| graylog_email_from_email                     | string  |                                                                                    | my_mail@gmail.com       |                 |
+| graylog_email_subject_prefix                 | string  |                                                                                    | [graylog]               |                 |
+| graylog_http_external_uri_var                | string  |                                                                                    | {{ graylog_url }}       |                 |
 | opensearch_memory                            | string  |                                                                                    | 2g                      |                 |
-| opensearch_java_memory_OPTS                  | string  |                                                                                    | '-Xms1g -Xmx1g'         |                 |
+| opensearch_java_memory_opts                  | string  |                                                                                    | '-Xms1g -Xmx1g'         |                 |
 
 Dependencies
 ------------

@@ -70,17 +70,17 @@
   when: not reg_graylog_env_password_presence.found
 
 - name: 'install | graylog password | generate root password into graylog .env file'
-  shell: "echo -n {{ GRAYLOG_ROOT_PASSWORD_SHA2_password }} | shasum -a 256 | awk '{print $1}'"
-  register: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password
+  shell: "echo -n {{ graylog_root_password_sha2_password }} | shasum -a 256 | awk '{print $1}'"
+  register: reg_graylog_root_password_sha2_password
   when: not reg_graylog_env_password_presence.found
 
 - name: 'install | graylog password | define root password into .env file'
   lineinfile:
     path: /opt/docker-compose/graylog/.env
     regexp: '^GRAYLOG_ROOT_PASSWORD_SHA2='
-    line: GRAYLOG_ROOT_PASSWORD_SHA2="{{ reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.stdout }}"
+    line: GRAYLOG_ROOT_PASSWORD_SHA2="{{ reg_graylog_root_password_sha2_password.stdout }}"
     insertafter: '^# GRAYLOG_ROOT_PASSWORD_SHA2'
-  when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password is defined and reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True
+  when: reg_graylog_root_password_sha2_password is defined and reg_graylog_root_password_sha2_password.changed == True
   notify:
     - 'docker-graylog-restart'
 
@@ -139,4 +139,4 @@
 #    state: restarted
 #    name: "docker-compose@graylog"
 #  ignore_errors: '{{ ansible_check_mode }}'
-#  when: reg_GRAYLOG_ROOT_PASSWORD_SHA2_password.changed == True or reg_graylog_env_secret.changed == True
+#  when: reg_graylog_root_password_sha2_password.changed == True or reg_graylog_env_secret.changed == True

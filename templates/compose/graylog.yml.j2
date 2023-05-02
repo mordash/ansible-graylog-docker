@@ -37,7 +37,7 @@ services:
     container_name: graylog_opensearch
     restart: on-failure
     environment:
-      OPENSEARCH_JAVA_OPTS: "{{ opensearch_java_memory_OPTS }}"
+      OPENSEARCH_JAVA_OPTS: "{{ opensearch_java_memory_opts }}"
       bootstrap.memory_lock: "true"
       discovery.type: "single-node"
       action.auto_create_index: "false"
@@ -76,8 +76,8 @@ services:
       GRAYLOG_ROOT_PASSWORD_SHA2: "${GRAYLOG_ROOT_PASSWORD_SHA2}"
       GRAYLOG_ROOT_TIMEZONE: "Europe/Paris"
       GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
-{% if graylog_HTTP_EXTERNAL_URI is defined %}
-      GRAYLOG_HTTP_EXTERNAL_URI: "{{ graylog_HTTP_EXTERNAL_URI }}"
+{% if graylog_http_external_uri_var is defined %}
+      GRAYLOG_HTTP_EXTERNAL_URI: "{{ graylog_http_external_uri_var }}"
 {% endif %}
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
       GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"

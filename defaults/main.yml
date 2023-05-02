@@ -1,9 +1,9 @@
 ---
 # graylog
 graylog_url: "www.graylog.localhost"
-graylog_HTTP_EXTERNAL_URI: "https://{{ graylog_url }}/"
+graylog_http_external_uri_var: "https://{{ graylog_url }}/"
 graylog_server_port: "9000"
-GRAYLOG_ROOT_PASSWORD_SHA2_password: "admin"
+graylog_root_password_sha2_password: "admin"
 graylog_port_tcp_syslog: 1514
 #graylog_port_tcp_syslog_custom:
 #  - 10000
@@ -23,7 +23,7 @@ graylog_email_subject_prefix: "[graylog]"
 
 # opensearch
 opensearch_memory: '2g'
-opensearch_java_memory_OPTS: '-Xms1g -Xmx1g'
+opensearch_java_memory_opts: '-Xms1g -Xmx1g'
 
 # docker
 graylog_docker_network: graylog
