@@ -121,12 +121,14 @@ graylog_port_tcp_syslog_custom:
 Requirements
 -----------------
 ***apache***
+
 redirect rsyslog apache like this :
 ```
 :syslogtag, startswith, "vhost_apache" @@graylog_server_ip:graylog_port_tcp_syslog;RSYSLOG_LongTagForwardForma
 ```
 
 ***haproxy***
+
 redirect rsyslog haproxy :
 ```
 if ( ( $syslogfacility-text == "local0" ) and ( $syslogseverity-text == "info" ) and ( $syslogtag startswith "haproxy") ) then @@graylog_server_ip:graylog_port_tcp_syslog;RSYSLOG_LongTagForwardFormat```
