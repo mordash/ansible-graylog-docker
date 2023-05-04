@@ -120,10 +120,37 @@ graylog_port_tcp_syslog_custom:
 
 Requirements
 -----------------
-
+***apache***
 redirect rsyslog apache like this :
 ```
 :syslogtag, startswith, "vhost_apache" @@graylog_server_ip:graylog_port_tcp_syslog;RSYSLOG_LongTagForwardForma
+```
+
+***haproxy***
+redirect rsyslog haproxy :
+```
+if ( ( $syslogfacility-text == "local0" ) and ( $syslogseverity-text == "info" ) and ( $syslogtag startswith "haproxy") ) then @@graylog_server_ip:graylog_port_tcp_syslog;RSYSLOG_LongTagForwardFormat```
+```
+logformat haproxy :
+```
+log-format %ci:%cp\ -\ [%Tl]\ %{+Q}r\ %ST\ %B\ [%{+Q}hrl]\ ---\ %{+Q}[var(txn.SCHEME)]\ %{+Q}HV\ [%b/%s]\ [%{+Q}hsl]\ %TR/%Tw/%Tc/%Tr/%Ta
+```
+grok pattern:
+- HAPROXY_LOG
+```
+%{DATA:source}%{SPACE}%{SYSLOGPROG}:%{SPACE}%{IP:client_ip}:%{INT:client_port}%{GREEDYDATA}\[%{HAPROXYDATE:accept_date}\]%{SPACE}%{HAPROXY_REQUEST}%{SPACE}%{INT:http_status_code}%{SPACE}%{NOTSPACE:bytes_read}%{SPACE}\["%{DATA:X-Forwarded-For}"%{SPACE}"%{DATA:CF-Connecting-IP}"%{SPACE}"%{DATA:request_header_referer}"%{SPACE}"%{DATA:request_header_user_agent}"%{SPACE}"%{HOSTNAME}"\]%{GREEDYDATA}"%{DATA:http_proto}"%{SPACE}"HTTP/%{NUMBER:http_version}"%{SPACE}\[%{NOTSPACE:backend_name}/%{NOTSPACE:server_name}\]%{SPACE}\[%{DATA:captured_response_headers}\]%{SPACE}%{INT:time_1_client_request_ms}/%{INT:time_2_srv_queue_ms}/%{INT:time_3_tcp_backend_connect_ms}/%{INT:time_4_response_ms}/%{INT:time_5_total_session_duration_ms}
+```
+- HAPROXY_REQUEST
+```
+"%{WORD:http_verb}%{DATA:rawrequest}HTTP/%{NUMBER:http_version}"
+```
+- HAPROXYDATE
+```
+%{MONTHDAY:haproxy_monthday}/%{MONTH:haproxy_month}/%{YEAR:haproxy_year}:%{HAPROXYTIME:haproxy_time}.%{INT:haproxy_milliseconds}
+```
+- HAPROXYTIME
+```
+(?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])
 ```
 
 TODO
