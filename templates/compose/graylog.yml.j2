@@ -14,8 +14,8 @@ networks:
   graylog:
     external: true
 {% if graylog_traefik_enable is defined %}
-        traefik:
-          external: true
+    traefik:
+    external: true
 {% endif %}
 
 services:
