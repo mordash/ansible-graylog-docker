@@ -27,6 +27,7 @@ opensearch_java_memory_opts: '-Xms1g -Xmx1g'
 
 # docker
 graylog_docker_network: graylog
+graylog_traefik_entrypoints: https
 
 # GeoIP
 geoip_accountid: 'AccountID'

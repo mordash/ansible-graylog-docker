@@ -127,7 +127,7 @@ services:
       traefik.enable: true
       traefik.docker.network: traefik
       traefik.http.routers.graylog.rule: "Host(`{{ graylog_url }}`)"
-      traefik.http.routers.graylog.entrypoints: websecure
+      traefik.http.routers.graylog.entrypoints: {{ graylog_traefik_entrypoints }}
       traefik.http.routers.graylog.tls: true
       traefik.http.routers.graylog.tls.certresolver: letsencrypt
       traefik.http.services.graylog.loadbalancer.server.port: {{ graylog_server_port }}
