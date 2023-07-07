@@ -38,6 +38,10 @@ Role variables
 | geoip_editionids                             | string  |                                                                                    | GeoLite2-ASN GeoLite2-City |              |
 | geoip_arch                                   | string  |                                                                                    | amd64                   |                 |
 | geoip_database_directory                     | string  |                                                                                    | /var/lib/docker/volumes/graylog_data/_data/geoip  |                 |
+| docker_image_mongodb                         | string  | latest/'5.0'                                                                       | '5.0'                   |                 |
+| docker_image_opensearch                      | string  | latest/'2.4.0'                                                                     | '2.4.0'                 |                 |
+| docker_image_graylog                         | string  | latest/'5.0'                                                                       | '5.0'                   |                 |
+
 
 Dependencies
 ------------
@@ -155,6 +159,13 @@ grok pattern:
 (?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])
 ```
 
+- Apache2 error_log ???
+```
+        Regex  ^\[[^ ]* (?<time>[^\]]*)\] \[(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*)\])?( \[client (?<client>[^\]]*)\])? (?<message>.*)$
+```
+https://www.xtivia.com/blog/k8s-loggings-graylog-fluent-bit/
+
+
 TODO
 ----
 
@@ -164,6 +175,8 @@ TODO
     - add options to import content pack
   - log format
     - add options to change logformat haproxy/apache2
+  - tester https://github.com/fluent/fluent-bit
+  - tester log errors apache2 ou haproxy
 
 Troubleshoots :
 -----------------
