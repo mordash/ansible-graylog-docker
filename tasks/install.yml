@@ -84,6 +84,15 @@
   notify:
     - 'docker-graylog-restart'
 
+- name: 'install | graylog docker | create graylogs volumes'
+  docker_volume:
+    name: "{{ item }}"
+  with_items:
+    - graylog_mongodb_data
+    - graylog_os_data
+    - graylog_data
+    - graylog_journal
+
 - name: 'install | graylog | create folder for geoip databases'
   file:
     path: /var/lib/docker/volumes/graylog_data/{{ item }}
