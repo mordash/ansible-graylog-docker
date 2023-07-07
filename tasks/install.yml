@@ -84,39 +84,15 @@
   notify:
     - 'docker-graylog-restart'
 
-- name: 'install | graylog docker | create graylogs volumes'
-  docker_volume:
-    name: "{{ item }}"
-  with_items:
-    - graylog_mongodb_data
-    - graylog_os_data
-    - graylog_data
-    - graylog_journal
+#- name: 'install | graylog docker | create graylogs volumes'
+#  docker_volume:
+#    name: "{{ item }}"
+#  with_items:
+#    - graylog_mongodb_data
+#    - graylog_os_data
+#    - graylog_data
+#    - graylog_journal
 
-- name: 'install | graylog | create folder for geoip databases'
-  file:
-    path: /var/lib/docker/volumes/graylog_data/{{ item }}
-    state: directory
-    owner: 1100
-    group: 1100
-  with_items:
-    - _data
-    - _data/geoip
-
-- name: 'install | graylog | unarchive geoip databases'
-  unarchive:
-    remote_src: no
-    src: "files/lookup_tables/{{ item }}"
-    dest: /var/lib/docker/volumes/graylog_data/_data/geoip
-    owner: 1100
-    group: 1100
-    mode: '0755'
-    extra_opts: [--strip-components=1]
-  with_items:
-    - GeoLite2-ASN_20230428.tar.gz
-    - GeoLite2-City_20230428.tar.gz
-  notify:
-    - 'docker-graylog-restart'
 
 - name: 'install | graylog systemd | install unit file'
   template:
@@ -134,6 +110,31 @@
     name: "docker-compose@graylog"
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
+
+- name: 'install | graylog | create folder for geoip databases'
+  file:
+    path: /var/lib/docker/volumes/graylog_data/{{ item }}
+    state: directory
+    owner: 1100
+    group: 1100
+  with_items:
+#    - _data
+    - _data/geoip
+
+- name: 'install | graylog | unarchive geoip databases'
+  unarchive:
+    remote_src: no
+    src: "files/lookup_tables/{{ item }}"
+    dest: /var/lib/docker/volumes/graylog_data/_data/geoip
+    owner: 1100
+    group: 1100
+    mode: '0755'
+    extra_opts: [--strip-components=1]
+  with_items:
+    - GeoLite2-ASN_20230428.tar.gz
+    - GeoLite2-City_20230428.tar.gz
+#  notify:
+#    - 'docker-graylog-restart'
 
 #- name: 'install | graylog systemd | restart service'
 #  systemd:

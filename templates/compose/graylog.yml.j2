@@ -1,14 +1,10 @@
 version: "3.3"
 
 volumes:
-  graylog_mongodb_data:
-    external: true
-  graylog_os_data:
-    external: true
-  graylog_data:
-    external: true
-  graylog_journal:
-    external: true
+  mongodb_data:
+  os_data:
+  data:
+  journal:
 
 networks:
   graylog:
@@ -23,7 +19,7 @@ services:
     container_name: graylog_mongodb
     restart: on-failure
     volumes:
-      - graylog_mongodb_data:/data/db
+      - mongodb_data:/data/db
     networks:
       - graylog
     logging:
@@ -51,7 +47,7 @@ services:
         limits:
           memory: {{ opensearch_memory }}
     volumes:
-      - graylog_os_data:/usr/share/opensearch/data
+      - os_data:/usr/share/opensearch/data
     networks:
       - graylog
     logging:
@@ -114,8 +110,8 @@ services:
 {% endfor %}
 {% endif %}
     volumes:
-      - graylog_data:/usr/share/graylog/data
-      - graylog_journal:/usr/share/graylog/data/journal
+      - data:/usr/share/graylog/data
+      - journal:/usr/share/graylog/data/journal
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
