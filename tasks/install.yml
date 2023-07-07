@@ -111,6 +111,12 @@
     enabled: true
   ignore_errors: '{{ ansible_check_mode }}'
 
+- name: 'install | graylog systemd | first start service'
+  systemd:
+    name: docker-compose@graylog.service
+    state: started
+    enabled: yes
+
 - name: 'install | graylog | create folder for geoip databases'
   file:
     path: /var/lib/docker/volumes/graylog_data/{{ item }}
@@ -118,7 +124,7 @@
     owner: 1100
     group: 1100
   with_items:
-    - _data
+#    - _data
     - _data/geoip
 
 - name: 'install | graylog | unarchive geoip databases'
@@ -133,8 +139,8 @@
   with_items:
     - GeoLite2-ASN_20230428.tar.gz
     - GeoLite2-City_20230428.tar.gz
-  notify:
-    - 'docker-graylog-restart'
+#  notify:
+#    - 'docker-graylog-restart'
 
 #- name: 'install | graylog systemd | restart service'
 #  systemd:
