@@ -133,8 +133,8 @@
   with_items:
     - GeoLite2-ASN_20230428.tar.gz
     - GeoLite2-City_20230428.tar.gz
-#  notify:
-#    - 'docker-graylog-restart'
+  notify:
+    - 'docker-graylog-restart'
 
 #- name: 'install | graylog systemd | restart service'
 #  systemd:
