@@ -15,7 +15,7 @@ networks:
 
 services:
   mongodb:
-    image: mongo:"{{ docker_image_mongodb }}"
+    image: mongo:{{ docker_image_mongodb }}
     container_name: graylog_mongodb
     restart: on-failure
     volumes:
@@ -28,7 +28,7 @@ services:
         tag: docker_graylog-mongodb
 
   opensearch:
-    image: opensearchproject/opensearch:"{{ docker_image_opensearch }}"
+    image: opensearchproject/opensearch:{{ docker_image_opensearch }}
     container_name: graylog_opensearch
     restart: on-failure
     environment:
@@ -56,7 +56,7 @@ services:
         tag: docker_graylog-opensearch
 
   graylog:
-    image: graylog/graylog:"{{ docker_image_graylog }}"
+    image: graylog/graylog:{{ docker_image_graylog }}
     container_name: graylog
     restart: unless-stopped
     depends_on:
