@@ -144,7 +144,7 @@ log-format %ci:%cp\ -\ [%Tl]\ %{+Q}r\ %ST\ %B\ [%{+Q}hrl]\ ---\ %{+Q}[var(txn.SC
 grok pattern:
 - HAPROXY_LOG
 ```
-%{DATA:source}%{SPACE}%{SYSLOGPROG}:%{SPACE}%{IP:client_ip}:%{INT:client_port}%{GREEDYDATA}\[%{HAPROXYDATE:accept_date}\]%{SPACE}%{HAPROXY_REQUEST}%{SPACE}%{INT:http_status_code}%{SPACE}%{NOTSPACE:bytes_read}%{SPACE}\["%{DATA:X-Forwarded-For}"%{SPACE}"%{DATA:CF-Connecting-IP}"%{SPACE}"%{DATA:request_header_referer}"%{SPACE}"%{DATA:request_header_user_agent}"%{SPACE}"%{HOSTNAME}"\]%{GREEDYDATA}"%{DATA:http_proto}"%{SPACE}"HTTP/%{NUMBER:http_version}"%{SPACE}\[%{NOTSPACE:backend_name}/%{NOTSPACE:server_name}\]%{SPACE}\[%{DATA:captured_response_headers}\]%{SPACE}%{INT:time_1_client_request_ms}/%{INT:time_2_srv_queue_ms}/%{INT:time_3_tcp_backend_connect_ms}/%{INT:time_4_response_ms}/%{INT:time_5_total_session_duration_ms}
+%{DATA:source}%{SPACE}%{SYSLOGPROG}:%{SPACE}%{IP:clientip}:%{INT:client_port}%{GREEDYDATA}\[%{HAPROXYDATE:accept_date}\]%{SPACE}%{HAPROXY_REQUEST}%{SPACE}%{INT:http_status_code}%{SPACE}%{NOTSPACE:bytes_read}%{SPACE}\["%{DATA:X-Forwarded-For}"%{SPACE}"%{DATA:CF-Connecting-IP}"%{SPACE}"%{DATA:request_header_referer}"%{SPACE}"%{DATA:request_header_user_agent}"%{SPACE}"%{HOSTNAME}"\]%{GREEDYDATA}"%{DATA:http_proto}"%{SPACE}"HTTP/%{NUMBER:http_version}"%{SPACE}\[%{NOTSPACE:backend_name}/%{NOTSPACE:server_name}\]%{SPACE}\[%{DATA:captured_response_headers}\]%{SPACE}%{INT:time_1_client_request_ms}/%{INT:time_2_srv_queue_ms}/%{INT:time_3_tcp_backend_connect_ms}/%{INT:time_4_response_ms}/%{INT:time_5_total_session_duration_ms}
 ```
 - HAPROXY_REQUEST
 ```
@@ -159,11 +159,10 @@ grok pattern:
 (?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])
 ```
 
-- Apache2 error_log ???
+- Apache2 error_log .... à tester ??? https://www.xtivia.com/blog/k8s-loggings-graylog-fluent-bit/
 ```
         Regex  ^\[[^ ]* (?<time>[^\]]*)\] \[(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*)\])?( \[client (?<client>[^\]]*)\])? (?<message>.*)$
 ```
-https://www.xtivia.com/blog/k8s-loggings-graylog-fluent-bit/
 
 
 TODO
@@ -172,9 +171,9 @@ TODO
   - documentation
     - review / enhance documentation
   - content pack
-    - add options to import content pack
-  - log format
-    - add options to change logformat haproxy/apache2
+    - add options to import content pack with api
+  - stream
+    - add apache2 stream
   - tester https://github.com/fluent/fluent-bit
   - tester log errors apache2 ou haproxy
 
