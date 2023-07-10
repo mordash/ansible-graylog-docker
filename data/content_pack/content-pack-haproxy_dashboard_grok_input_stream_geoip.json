@@ -1,9 +1,9 @@
 {
   "v": "1",
   "id": "399222f6-dea5-4bdb-8307-97ff27f2ff63",
-  "rev": 5,
-  "name": "haproxy_dashboard_grok_input_stream_geoip",
-  "summary": "haproxy_dashboard_grok_input_stream_geoip",
+  "rev": 4,
+  "name": "haproxy_dashboard_grok_input_stream",
+  "summary": "haproxy_dashboard_grok_input_stream",
   "description": "",
   "vendor": "lca",
   "url": "",
@@ -61,9 +61,7 @@
                     "type": "relative"
                   },
                   "column_limit": null,
-                  "streams": [
-                    "cef748d2-2686-4887-95af-a1754097b423"
-                  ],
+                  "streams": [],
                   "row_limit": null,
                   "series": [
                     {
@@ -2115,9 +2113,7 @@
                     "type": "relative"
                   },
                   "column_limit": null,
-                  "streams": [
-                    "48c9b6a9-390a-4fd0-9739-ecf86138d70f"
-                  ],
+                  "streams": [],
                   "row_limit": null,
                   "series": [
                     {
@@ -4140,133 +4136,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "33cd81c3-21fd-43c1-b29e-c55d8c346c02",
-      "data": {
-        "name": "HAPROXYDATE",
-        "pattern": "%{MONTHDAY:haproxy_monthday}/%{MONTH:haproxy_month}/%{YEAR:haproxy_year}:%{HAPROXYTIME:haproxy_time}.%{INT:haproxy_milliseconds}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "0e9408d4-c469-4336-8621-a1ad97c19b0e",
-      "data": {
-        "name": "HAPROXYTIME",
-        "pattern": "(?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "1f0246aa-e991-46e2-8824-fec874a10260",
-      "data": {
-        "name": "HAPROXY_REQUEST",
-        "pattern": "\"%{WORD:http_verb}%{DATA:rawrequest}HTTP/%{NUMBER:http_version}\"\n"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "2b9321be-0eaa-43e0-9e0f-27b6b585654e",
-      "data": {
-        "name": "SPACE",
-        "pattern": "\\s*"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "b41b440a-09cb-4b38-86f5-fb84d78d1693",
-      "data": {
-        "name": "GREEDYDATA",
-        "pattern": ".*"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "939287b0-5045-4ade-9a3f-fe374d16f8e2",
-      "data": {
-        "name": "NUMBER",
-        "pattern": "(?:%{BASE10NUM})"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "72cf9a5e-4b06-4e16-ba0f-678c60abd87e",
-      "data": {
-        "name": "SYSLOGPROG",
-        "pattern": "%{PROG:program}(?:\\[%{POSINT:pid}\\])?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "2e87cdb7-193e-4bbc-bea9-bd3e43965017",
+      "id": "37047ac6-3cc9-4b73-bcde-0f0c10473563",
       "data": {
         "name": "HOSTNAME",
         "pattern": "\\b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\\.?|\\b)"
@@ -4274,7 +4144,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4284,25 +4154,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "2f394201-f254-431c-84a1-98617623a14a",
-      "data": {
-        "name": "DATA",
-        "pattern": ".*?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "59d1af6a-39ee-4f99-a4f6-5ab18119e0ae",
+      "id": "551c171f-9e31-4325-ba4e-97fb55a26599",
       "data": {
         "name": "NOTSPACE",
         "pattern": "\\S+"
@@ -4310,7 +4162,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4320,151 +4172,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "1f9235bf-568c-48a3-99c4-d0a8cadda858",
-      "data": {
-        "name": "IP",
-        "pattern": "(?:%{IPV6}|%{IPV4})"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "6fc27fac-c940-47f8-8834-b3c19e7a9104",
-      "data": {
-        "name": "INT",
-        "pattern": "(?:[+-]?(?:[0-9]+))"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f9b8fbf3-58e3-4c64-a86b-a0967bed98b0",
-      "data": {
-        "name": "MONTH",
-        "pattern": "\\b(?:Jan(?:uary|uar)?|Feb(?:ruary|ruar)?|M(?:a|ä)?r(?:ch|z)?|Apr(?:il)?|Ma(?:y|i)?|Jun(?:e|i)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|O(?:c|k)?t(?:ober)?|Nov(?:ember)?|De(?:c|z)(?:ember)?)\\b"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "c876bc8f-82ec-4ea4-af35-c31c25032645",
-      "data": {
-        "name": "YEAR",
-        "pattern": "(?>\\d\\d){1,2}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "93644173-7d9c-4134-bc10-04b35e299f29",
-      "data": {
-        "name": "MONTHDAY",
-        "pattern": "(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d4750341-2f2f-4b1e-9fa8-985e07d6f79c",
-      "data": {
-        "name": "HOUR",
-        "pattern": "(?:2[0123]|[01]?[0-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f13f6f1e-1301-47b7-89e3-ae84321cde95",
-      "data": {
-        "name": "MINUTE",
-        "pattern": "(?:[0-5][0-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "c146f8f0-860c-4cac-bee2-6e72d82a0ec3",
-      "data": {
-        "name": "SECOND",
-        "pattern": "(?:(?:[0-5]?[0-9]|60)(?:[:.,][0-9]+)?)"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "2112e434-1ac3-40f7-a39d-2da1ee0a2f6e",
+      "id": "d4f6ae63-69bc-43e8-96fc-079153d2af0c",
       "data": {
         "name": "WORD",
         "pattern": "\\b\\w+\\b"
@@ -4472,7 +4180,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4482,15 +4190,15 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "7a424925-4c71-4a07-9829-ae053ea361c1",
+      "id": "21b737b3-983a-4f2a-a7f5-bbaa9781166d",
       "data": {
-        "name": "BASE10NUM",
-        "pattern": "(?<![0-9.+-])(?>[+-]?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+)))"
+        "name": "IP",
+        "pattern": "(?:%{IPV6}|%{IPV4})"
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4500,15 +4208,15 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "b35bd242-96dc-4e6a-af64-23b95850076f",
+      "id": "fe2b8ec3-b343-4371-9482-48c66c7e1dd7",
       "data": {
-        "name": "POSINT",
-        "pattern": "\\b(?:[1-9][0-9]*)\\b"
+        "name": "SPACE",
+        "pattern": "\\s*"
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4518,15 +4226,15 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "b122ec52-9c02-4dbd-9913-4aa590129d0f",
+      "id": "66a67d6e-9895-4221-8f30-ec751c7ea383",
       "data": {
-        "name": "PROG",
-        "pattern": "[\\x21-\\x5a\\x5c\\x5e-\\x7e]+"
+        "name": "MONTHDAY",
+        "pattern": "(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9])"
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4536,15 +4244,15 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "c853e61a-09b5-4709-ada4-6177503eac38",
+      "id": "ca34a6dd-0200-42d4-b7fa-aa812c84ce85",
       "data": {
-        "name": "IPV6",
-        "pattern": "((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?"
+        "name": "HOUR",
+        "pattern": "(?:2[0123]|[01]?[0-9])"
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -4554,25 +4262,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "0327b024-1f35-48e1-af77-00fe642f7a13",
-      "data": {
-        "name": "IPV4",
-        "pattern": "(?<![0-9])(?:(?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]))(?![0-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "07e5dc0c-8f94-4d33-8556-889478dfbbd6",
+      "id": "b5eb140a-5827-4934-8f40-78cca85348fc",
       "data": {
         "name": "HAPROXY_LOG",
         "pattern": "%{DATA:source}%{SPACE}%{SYSLOGPROG}:%{SPACE}%{IP:clientip}:%{INT:client_port}%{GREEDYDATA}\\[%{HAPROXYDATE:accept_date}\\]%{SPACE}%{HAPROXY_REQUEST}%{SPACE}%{INT:http_status_code}%{SPACE}%{NOTSPACE:bytes_read}%{SPACE}\\[\"%{DATA:X-Forwarded-For}\"%{SPACE}\"%{DATA:CF-Connecting-IP}\"%{SPACE}\"%{DATA:request_header_referer}\"%{SPACE}\"%{DATA:request_header_user_agent}\"%{SPACE}\"%{HOSTNAME}\"\\]%{GREEDYDATA}\"%{DATA:http_proto}\"%{SPACE}\"HTTP/%{NUMBER:http_version}\"%{SPACE}\\[%{NOTSPACE:backend_name}/%{NOTSPACE:server_name}\\]%{SPACE}\\[%{DATA:captured_response_headers}\\]%{SPACE}%{INT:time_1_client_request_ms}/%{INT:time_2_srv_queue_ms}/%{INT:time_3_tcp_backend_connect_ms}/%{INT:time_4_response_ms}/%{INT:time_5_total_session_duration_ms}"
@@ -4590,367 +4280,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "14fa4c2b-6670-4669-a2d6-0bb863982687",
-      "data": {
-        "name": "SPACE",
-        "pattern": "\\s*"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "fbbfca49-efc8-4b4d-9452-0038556dbeed",
-      "data": {
-        "name": "HAPROXY_REQUEST",
-        "pattern": "\"%{WORD:http_verb}%{DATA:rawrequest}HTTP/%{NUMBER:http_version}\"\n"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "a3b01cf7-0cf4-4728-81eb-b7bcb09d2418",
-      "data": {
-        "name": "GREEDYDATA",
-        "pattern": ".*"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "ac351e9e-3244-4a7b-b81b-3e397e481489",
-      "data": {
-        "name": "NUMBER",
-        "pattern": "(?:%{BASE10NUM})"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d8e5662a-5f0b-4013-b2be-09c373555a68",
-      "data": {
-        "name": "SYSLOGPROG",
-        "pattern": "%{PROG:program}(?:\\[%{POSINT:pid}\\])?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "62537629-7e9f-4a28-b2e2-f73218d1ab60",
-      "data": {
-        "name": "HAPROXYDATE",
-        "pattern": "%{MONTHDAY:haproxy_monthday}/%{MONTH:haproxy_month}/%{YEAR:haproxy_year}:%{HAPROXYTIME:haproxy_time}.%{INT:haproxy_milliseconds}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d45cdf55-47e7-41b9-a233-0bdef4891b04",
-      "data": {
-        "name": "HOSTNAME",
-        "pattern": "\\b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\\.?|\\b)"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "fd729c82-060b-47e4-b88b-815c898e76ed",
-      "data": {
-        "name": "DATA",
-        "pattern": ".*?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "cddb4e53-6a7a-4b30-ab5f-db1e42d7790d",
-      "data": {
-        "name": "NOTSPACE",
-        "pattern": "\\S+"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "13a5a769-aab4-4092-b6d8-5f1d83e04d52",
-      "data": {
-        "name": "IP",
-        "pattern": "(?:%{IPV6}|%{IPV4})"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "6a85b515-3313-43dd-90f3-41906b1d6ff8",
-      "data": {
-        "name": "INT",
-        "pattern": "(?:[+-]?(?:[0-9]+))"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "8d9df356-86bb-4b8c-b19e-54f59736a5ae",
-      "data": {
-        "name": "WORD",
-        "pattern": "\\b\\w+\\b"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "fb585f32-298b-46a5-8ec2-d51886ca8180",
-      "data": {
-        "name": "BASE10NUM",
-        "pattern": "(?<![0-9.+-])(?>[+-]?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+)))"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "22414214-4d7a-453c-9b84-5157c95efb74",
-      "data": {
-        "name": "POSINT",
-        "pattern": "\\b(?:[1-9][0-9]*)\\b"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "e651acb7-10f0-41e9-b4dd-f184efde93ec",
-      "data": {
-        "name": "PROG",
-        "pattern": "[\\x21-\\x5a\\x5c\\x5e-\\x7e]+"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "1d6781a1-a651-48d2-8d0b-71ceafc68270",
-      "data": {
-        "name": "MONTH",
-        "pattern": "\\b(?:Jan(?:uary|uar)?|Feb(?:ruary|ruar)?|M(?:a|ä)?r(?:ch|z)?|Apr(?:il)?|Ma(?:y|i)?|Jun(?:e|i)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|O(?:c|k)?t(?:ober)?|Nov(?:ember)?|De(?:c|z)(?:ember)?)\\b"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "9ddacbaa-64c9-4d9b-8560-7b45ae2df11f",
-      "data": {
-        "name": "YEAR",
-        "pattern": "(?>\\d\\d){1,2}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "5cc30d52-98b9-4556-80c9-f9d11bde416c",
-      "data": {
-        "name": "HAPROXYTIME",
-        "pattern": "(?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "80507899-8c45-415c-94ef-ee69fd87138a",
-      "data": {
-        "name": "MONTHDAY",
-        "pattern": "(?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9])"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "2a028457-1ad2-4085-a7ce-528336a0f7fe",
-      "data": {
-        "name": "IPV6",
-        "pattern": "((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "7566c61d-4a42-439a-bdc1-d89c75b26192",
+      "id": "06abede9-c33d-4e46-b7a8-313f6134d584",
       "data": {
         "name": "IPV4",
         "pattern": "(?<![0-9])(?:(?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])[.](?:[0-1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]))(?![0-9])"
@@ -4968,10 +4298,10 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "4259fa75-5374-4aae-9d5a-9760879b08b7",
+      "id": "5c94d4c2-5f5f-4592-b754-5c5c2e2dd145",
       "data": {
-        "name": "HOUR",
-        "pattern": "(?:2[0123]|[01]?[0-9])"
+        "name": "HAPROXYDATE",
+        "pattern": "%{MONTHDAY:haproxy_monthday}/%{MONTH:haproxy_month}/%{YEAR:haproxy_year}:%{HAPROXYTIME:haproxy_time}.%{INT:haproxy_milliseconds}"
       },
       "constraints": [
         {
@@ -4986,7 +4316,25 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "4dc884ce-9338-4d53-86b0-cb8710955c8e",
+      "id": "4c58369d-75cc-4d4e-b54d-72cde9e4bd65",
+      "data": {
+        "name": "NUMBER",
+        "pattern": "(?:%{BASE10NUM})"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "8d94a73d-9cf1-4584-8041-bb312eac9131",
       "data": {
         "name": "MINUTE",
         "pattern": "(?:[0-5][0-9])"
@@ -5004,10 +4352,226 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "5cf4fca8-ead5-470f-9b66-7d9a6c4d4216",
+      "id": "c4ca92da-2e3b-4599-b821-c45e99b64ea3",
+      "data": {
+        "name": "MONTH",
+        "pattern": "\\b(?:Jan(?:uary|uar)?|Feb(?:ruary|ruar)?|M(?:a|ä)?r(?:ch|z)?|Apr(?:il)?|Ma(?:y|i)?|Jun(?:e|i)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|O(?:c|k)?t(?:ober)?|Nov(?:ember)?|De(?:c|z)(?:ember)?)\\b"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "7904c44d-cd7c-44d3-915b-2c353792dd43",
+      "data": {
+        "name": "BASE10NUM",
+        "pattern": "(?<![0-9.+-])(?>[+-]?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+)))"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "cef3b922-eafe-44fb-8ff9-b11f8c30eaf4",
+      "data": {
+        "name": "POSINT",
+        "pattern": "\\b(?:[1-9][0-9]*)\\b"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "fc96977d-9bc9-437d-80bd-1fee3f770346",
       "data": {
         "name": "SECOND",
         "pattern": "(?:(?:[0-5]?[0-9]|60)(?:[:.,][0-9]+)?)"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "0d377602-5069-403d-ae2f-c4f413ff6706",
+      "data": {
+        "name": "SYSLOGPROG",
+        "pattern": "%{PROG:program}(?:\\[%{POSINT:pid}\\])?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "4d180574-3589-42fb-96b4-cbd71c93fc1c",
+      "data": {
+        "name": "YEAR",
+        "pattern": "(?>\\d\\d){1,2}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "9577e8e9-3860-4a49-bc16-a36e83f5675d",
+      "data": {
+        "name": "GREEDYDATA",
+        "pattern": ".*"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "fd5c629f-e397-46c1-a119-374e1b4be23b",
+      "data": {
+        "name": "PROG",
+        "pattern": "[\\x21-\\x5a\\x5c\\x5e-\\x7e]+"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "272c5a16-ddda-42a2-b837-e7b9f0eb9bed",
+      "data": {
+        "name": "HAPROXYTIME",
+        "pattern": "(?!<[0-9])%{HOUR:haproxy_hour}:%{MINUTE:haproxy_minute}(?::%{SECOND:haproxy_second})(?![0-9])"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "851b94b8-83e3-49bb-9ad4-f8b7149631ae",
+      "data": {
+        "name": "DATA",
+        "pattern": ".*?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "6758cc4c-2b36-4275-a000-e8f4ba686143",
+      "data": {
+        "name": "IPV6",
+        "pattern": "((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "44e35758-8242-4055-bca9-c80b4831b891",
+      "data": {
+        "name": "HAPROXY_REQUEST",
+        "pattern": "\"%{WORD:http_verb}%{DATA:rawrequest}HTTP/%{NUMBER:http_version}\"\n"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "2c8af96c-dd52-4229-bbee-f782c039a176",
+      "data": {
+        "name": "INT",
+        "pattern": "(?:[+-]?(?:[0-9]+))"
       },
       "constraints": [
         {
@@ -5168,61 +4732,7 @@
         "name": "lookup_adapter",
         "version": "1"
       },
-      "id": "a1b0c61a-6ecf-4d60-b63a-6cf8b3e1d274",
-      "data": {
-        "_scope": {
-          "@type": "string",
-          "@value": "DEFAULT"
-        },
-        "name": {
-          "@type": "string",
-          "@value": "geoip-city"
-        },
-        "title": {
-          "@type": "string",
-          "@value": "geoip-city"
-        },
-        "description": {
-          "@type": "string",
-          "@value": ""
-        },
-        "configuration": {
-          "type": {
-            "@type": "string",
-            "@value": "maxmind_geoip"
-          },
-          "path": {
-            "@type": "string",
-            "@value": "/usr/share/graylog/data/geoip/GeoLite2-City.mmdb"
-          },
-          "database_type": {
-            "@type": "string",
-            "@value": "MAXMIND_CITY"
-          },
-          "check_interval": {
-            "@type": "long",
-            "@value": 1
-          },
-          "check_interval_unit": {
-            "@type": "string",
-            "@value": "MINUTES"
-          }
-        }
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "lookup_adapter",
-        "version": "1"
-      },
-      "id": "0c804706-f785-4384-b7f0-a8365cf77bf8",
+      "id": "ca21f30e-2a8d-4266-9c2b-c54bbffefc68",
       "data": {
         "_scope": {
           "@type": "string",
@@ -5273,10 +4783,64 @@
     {
       "v": "1",
       "type": {
+        "name": "lookup_adapter",
+        "version": "1"
+      },
+      "id": "4cb407eb-cfac-43fe-bbc0-8ee5ab205705",
+      "data": {
+        "_scope": {
+          "@type": "string",
+          "@value": "DEFAULT"
+        },
+        "name": {
+          "@type": "string",
+          "@value": "geoip-city"
+        },
+        "title": {
+          "@type": "string",
+          "@value": "geoip-city"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "configuration": {
+          "type": {
+            "@type": "string",
+            "@value": "maxmind_geoip"
+          },
+          "path": {
+            "@type": "string",
+            "@value": "/usr/share/graylog/data/geoip/GeoLite2-City.mmdb"
+          },
+          "database_type": {
+            "@type": "string",
+            "@value": "MAXMIND_CITY"
+          },
+          "check_interval": {
+            "@type": "long",
+            "@value": 1
+          },
+          "check_interval_unit": {
+            "@type": "string",
+            "@value": "MINUTES"
+          }
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.9+f018089"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
         "name": "lookup_cache",
         "version": "1"
       },
-      "id": "63ee1b38-c49a-4a2c-8eda-a39949b4ca16",
+      "id": "f9993cfe-fc2f-4870-aa21-8d16855941f3",
       "data": {
         "_scope": {
           "@type": "string",
@@ -5330,7 +4894,7 @@
         "name": "lookup_table",
         "version": "1"
       },
-      "id": "d955c35d-e588-4f7a-bf5e-18a960b42adc",
+      "id": "f04f5a55-b88e-437c-b910-d3fd0489725f",
       "data": {
         "default_single_value_type": {
           "@type": "string",
@@ -5338,11 +4902,11 @@
         },
         "cache_name": {
           "@type": "string",
-          "@value": "63ee1b38-c49a-4a2c-8eda-a39949b4ca16"
+          "@value": "f9993cfe-fc2f-4870-aa21-8d16855941f3"
         },
         "name": {
           "@type": "string",
-          "@value": "geoip_city"
+          "@value": "geoip_asn"
         },
         "default_multi_value_type": {
           "@type": "string",
@@ -5354,7 +4918,7 @@
         },
         "data_adapter_name": {
           "@type": "string",
-          "@value": "a1b0c61a-6ecf-4d60-b63a-6cf8b3e1d274"
+          "@value": "ca21f30e-2a8d-4266-9c2b-c54bbffefc68"
         },
         "_scope": {
           "@type": "string",
@@ -5362,7 +4926,7 @@
         },
         "title": {
           "@type": "string",
-          "@value": "geoip_city"
+          "@value": "geoip_asn"
         },
         "default_single_value": {
           "@type": "string",
@@ -5386,7 +4950,7 @@
         "name": "lookup_table",
         "version": "1"
       },
-      "id": "c0033c6d-8f42-449c-96b5-408033fa9543",
+      "id": "605036a7-29c0-4b37-8eab-3269cc7bcdb6",
       "data": {
         "default_single_value_type": {
           "@type": "string",
@@ -5394,11 +4958,11 @@
         },
         "cache_name": {
           "@type": "string",
-          "@value": "63ee1b38-c49a-4a2c-8eda-a39949b4ca16"
+          "@value": "f9993cfe-fc2f-4870-aa21-8d16855941f3"
         },
         "name": {
           "@type": "string",
-          "@value": "geoip_asn"
+          "@value": "geoip_city"
         },
         "default_multi_value_type": {
           "@type": "string",
@@ -5410,7 +4974,7 @@
         },
         "data_adapter_name": {
           "@type": "string",
-          "@value": "0c804706-f785-4384-b7f0-a8365cf77bf8"
+          "@value": "4cb407eb-cfac-43fe-bbc0-8ee5ab205705"
         },
         "_scope": {
           "@type": "string",
@@ -5418,7 +4982,7 @@
         },
         "title": {
           "@type": "string",
-          "@value": "geoip_asn"
+          "@value": "geoip_city"
         },
         "default_single_value": {
           "@type": "string",
@@ -5442,7 +5006,7 @@
         "name": "pipeline",
         "version": "1"
       },
-      "id": "09a6b21a-774b-4851-9f34-d0d36cd663cc",
+      "id": "af9d7bf7-7dda-4e54-9d54-21adf1e594c0",
       "data": {
         "title": {
           "@type": "string",
@@ -5476,7 +5040,7 @@
         "name": "pipeline_rule",
         "version": "1"
       },
-      "id": "abf51c17-4147-4979-bbfe-fd5dafe6a424",
+      "id": "d6783c5f-5fbc-4323-8148-bbd0d12fa7ca",
       "data": {
         "title": {
           "@type": "string",
@@ -5504,7 +5068,7 @@
         "name": "stream",
         "version": "1"
       },
-      "id": "3278047d-761b-4fe5-be4c-fbf68a4cf46e",
+      "id": "87207170-867e-44a2-8a96-a1e03e1e65c8",
       "data": {
         "alarm_callbacks": [],
         "outputs": [],
@@ -5527,8 +5091,8 @@
               "@value": "source"
             },
             "value": {
-              "@value": "stream_haproxy_preprod_hostnames",
-              "@type": "parameter"
+              "@type": "string",
+              "@value": "my_servers0(1|2)"
             },
             "inverted": {
               "@type": "boolean",
@@ -5561,7 +5125,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     },
@@ -5571,7 +5135,7 @@
         "name": "stream",
         "version": "1"
       },
-      "id": "6e1394eb-5680-4fa4-94d0-9af8194ab1e3",
+      "id": "51d37a93-e923-496a-871f-fb6f126ae619",
       "data": {
         "alarm_callbacks": [],
         "outputs": [],
@@ -5594,8 +5158,8 @@
               "@value": "source"
             },
             "value": {
-              "@value": "stream_haproxy_prod_hostnames",
-              "@type": "parameter"
+              "@type": "string",
+              "@value": "my_servers0(1|2)"
             },
             "inverted": {
               "@type": "boolean",
@@ -5628,7 +5192,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.6+51f2df8"
+          "version": ">=5.0.9+f018089"
         }
       ]
     }
