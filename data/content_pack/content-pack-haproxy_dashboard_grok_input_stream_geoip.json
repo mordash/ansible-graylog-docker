@@ -61,7 +61,9 @@
                     "type": "relative"
                   },
                   "column_limit": null,
-                  "streams": [],
+                  "streams": [
+                    "cef748d2-2686-4887-95af-a1754097b423"
+                  ],
                   "row_limit": null,
                   "series": [
                     {
@@ -2113,7 +2115,9 @@
                     "type": "relative"
                   },
                   "column_limit": null,
-                  "streams": [],
+                  "streams": [
+                    "48c9b6a9-390a-4fd0-9739-ecf86138d70f"
+                  ],
                   "row_limit": null,
                   "series": [
                     {
@@ -5500,74 +5504,7 @@
         "name": "stream",
         "version": "1"
       },
-      "id": "01e48b7c-02ce-4120-8739-9f3bc2679b24",
-      "data": {
-        "alarm_callbacks": [],
-        "outputs": [],
-        "remove_matches": {
-          "@type": "boolean",
-          "@value": false
-        },
-        "title": {
-          "@type": "string",
-          "@value": "PROD - haproxy"
-        },
-        "stream_rules": [
-          {
-            "type": {
-              "@type": "string",
-              "@value": "REGEX"
-            },
-            "field": {
-              "@type": "string",
-              "@value": "source"
-            },
-            "value": {
-              "@type": "string",
-              "@value": "my_servers0(1|2)"
-            },
-            "inverted": {
-              "@type": "boolean",
-              "@value": false
-            },
-            "description": {
-              "@type": "string",
-              "@value": ""
-            }
-          }
-        ],
-        "alert_conditions": [],
-        "matching_type": {
-          "@type": "string",
-          "@value": "AND"
-        },
-        "disabled": {
-          "@type": "boolean",
-          "@value": false
-        },
-        "description": {
-          "@type": "string",
-          "@value": ""
-        },
-        "default_stream": {
-          "@type": "boolean",
-          "@value": false
-        }
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=5.0.9+f018089"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "stream",
-        "version": "1"
-      },
-      "id": "6469bd80-cd43-478c-b452-376f5926d351",
+      "id": "3278047d-761b-4fe5-be4c-fbf68a4cf46e",
       "data": {
         "alarm_callbacks": [],
         "outputs": [],
@@ -5590,8 +5527,8 @@
               "@value": "source"
             },
             "value": {
-              "@type": "string",
-              "@value": "my_servers0(1|2)"
+              "@value": "stream_haproxy_preprod_hostnames",
+              "@type": "parameter"
             },
             "inverted": {
               "@type": "boolean",
@@ -5624,7 +5561,74 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=5.0.9+f018089"
+          "version": ">=5.0.6+51f2df8"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "6e1394eb-5680-4fa4-94d0-9af8194ab1e3",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "PROD - haproxy"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "REGEX"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "source"
+            },
+            "value": {
+              "@value": "stream_haproxy_prod_hostnames",
+              "@type": "parameter"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=5.0.6+51f2df8"
         }
       ]
     }
